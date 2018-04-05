@@ -72,7 +72,8 @@ for i in range(58960):
     # print("Records created successfully");
 
 
-#############################################################
+######################## Tables Count ########################
+
 cur.execute('''SELECT COUNT(*) FROM cup_matches;''')
 print("cup_matches count: " + str(cur.fetchall()))
 
