@@ -31,4 +31,4 @@ print("\nA.Q4")
 print("cost=0.00..158.59")  ## TODO: change 
 
 print("\nA.Q5")
-print("")   ## TODO: Explain
+print("")   ## TODO: Explain => Different
