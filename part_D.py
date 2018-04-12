@@ -6,9 +6,9 @@ conn = psycopg2.connect(database="db2", user = "postgres", password = "123", hos
 print("Opened database successfully")
 cur = conn.cursor()
 
-
-cur.execute('''DROP INDEX cup_yearIndx; DROP INDEX playedin_yearIndx;''')
-conn.commit()
+# ## Uncomment after first run
+# cur.execute('''DROP INDEX cup_yearIndx; DROP INDEX playedin_yearIndx;''')
+# conn.commit()
 
 print("D.Q1")
 cur.execute('''EXPLAIN SELECT * from cup_matches, played_in WHERE cup_matches.year=played_in.year;''')

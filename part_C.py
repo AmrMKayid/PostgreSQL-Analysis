@@ -6,9 +6,9 @@ conn = psycopg2.connect(database="db2", user = "postgres", password = "123", hos
 print("Opened database successfully")
 cur = conn.cursor()
 
-
-cur.execute('''DROP INDEX ratingIndx;''')
-conn.commit()
+# ## Uncomment after first run
+# cur.execute('''DROP INDEX ratingIndx;''')
+# conn.commit()
 
 print("C.Q1")
 cur.execute('''EXPLAIN SELECT * from cup_matches WHERE rating*3 > 20;''')

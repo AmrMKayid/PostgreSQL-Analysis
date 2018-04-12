@@ -6,9 +6,9 @@ conn = psycopg2.connect(database="db2", user = "postgres", password = "123", hos
 print("Opened database successfully")
 cur = conn.cursor()
 
-
-cur.execute('''DROP INDEX posIndx;''')
-conn.commit()
+# ## Uncomment after first run
+# cur.execute('''DROP INDEX posIndx;''')
+# conn.commit()
 
 print("A.Q1")
 cur.execute('''EXPLAIN SELECT * from played_in WHERE position=1;''')
@@ -28,7 +28,7 @@ print(cur.fetchall())
 conn.commit()
 
 print("\nA.Q4")
-print("cost=0.00..158.59")  ## TODO: change 
+print("cost=0.00..158.59")  ## TODO: change
 
 print("\nA.Q5")
 print("")   ## TODO: Explain => Different

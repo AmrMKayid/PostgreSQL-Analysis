@@ -5,11 +5,12 @@ import string
 import random
 
 import time
+
 start_time = time.time()
 
 chars = string.ascii_uppercase + string.digits
 
-conn = psycopg2.connect(database="db2", user = "postgres", password = "123", host = "127.0.0.1", port = "5432")
+conn = psycopg2.connect(database="db2", user="postgres", password="123", host="127.0.0.1", port="5432")
 
 print("Opened database successfully")
 
@@ -17,9 +18,10 @@ cur = conn.cursor()
 
 ######################## cup_matches ########################
 
-cur.execute('''DROP TABLE cup_matches''')
-print("DROP cup_matches")
-conn.commit()
+# ## Uncomment after first run
+# cur.execute('''DROP TABLE cup_matches''')
+# print("DROP cup_matches")
+# conn.commit()
 
 cur.execute('''CREATE TABLE cup_matches
       (mid INT PRIMARY KEY     NOT NULL,
@@ -31,8 +33,7 @@ cur.execute('''CREATE TABLE cup_matches
 print("CREATE cup_matches")
 conn.commit()
 
-
-for i in range(5000000):
+for i in range(500000):
     round = ''.join(random.choice(chars) for _ in range(7))
     year = random.choice(range(1500, 2018))
     num_ratings = random.choice(range(0, 10000))
@@ -42,15 +43,15 @@ for i in range(5000000):
     conn.commit()
     # print("Records created successfully");
 
-
 ######################## played_in ########################
 
-cur.execute('''DROP TABLE played_in''')
-print("DROP played_in")
-conn.commit()
+# ## Uncomment after first run
+# cur.execute('''DROP TABLE played_in''')
+# print("DROP played_in")
+# conn.commit()
 
 cur.execute('''CREATE TABLE played_in
-      (mid            INT,
+      (mid            INT REFERENCES cup_matches(mid),
       name           TEXT,
       year            INT,
       position        INT,
@@ -59,21 +60,20 @@ cur.execute('''CREATE TABLE played_in
 print("CREATE played_in")
 conn.commit()
 
-for i in range(110000000):
+for i in range(10000000):
     year = random.choice(range(1500, 2018))
     position = random.choice(range(0, 7))
-    if i < 250000:
+    if i < 25000:
         name = 'pele' + str(i)
         command = "INSERT INTO played_in VALUES ({}, '{}', {}, {})".format(i, name, year, position)
         cur.execute(command);
         conn.commit()
     else:
         name = ''.join(random.choice(chars) for _ in range(5))
-        command = "INSERT INTO played_in VALUES ({}, '{}', {}, {})".format(i, name + str(i), year, position)
+        command = "INSERT INTO played_in VALUES ({}, '{}', {}, {})".format(random.choice(range(0, 500000)), name + str(i), year, position)
         cur.execute(command);
         conn.commit()
     # print("Records created successfully");
-
 
 ######################## Tables Count ########################
 
@@ -84,6 +84,5 @@ cur.execute('''SELECT COUNT(*) FROM played_in;''')
 print("played_in count: " + str(cur.fetchall()))
 
 conn.close()
-
 
 print("--- %s seconds ---" % (time.time() - start_time))
