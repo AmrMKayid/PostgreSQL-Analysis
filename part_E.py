@@ -13,13 +13,13 @@ conn.commit()
 
 
 print("\nE.Q2")
-cur.execute('''SET enable_mergejoin = FALSE;''')
+cur.execute('''SET enable_hashjoin = FALSE;''')
 cur.execute('''EXPLAIN SELECT * FROM cup_matches, played_in WHERE cup_matches.mid=played_in.mid;''')
 print(cur.fetchall())
 conn.commit()
 
 print("\nE.Q3")
-cur.execute('''SET enable_hashjoin = FALSE;''')
+cur.execute('''SET enable_mergejoin = FALSE;''')
 cur.execute('''EXPLAIN SELECT * FROM cup_matches, played_in WHERE cup_matches.mid=played_in.mid;''')
 print(cur.fetchall())
 conn.commit()
